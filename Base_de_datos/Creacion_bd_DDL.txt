@@ -38,7 +38,7 @@ create table Arbitro(
 create table TarjetaCredito(
 	NumeroTarjeta integer(16) primary key not null,
     Vencimiento datetime,
-    Tipo enum('Banco Itaú', 'Banco Santander', 'OCA Card', 'Scotiabank', 'BROU'));
+    Tipo enum('Mastercard', 'Visa'));
     
 create table Suscripcion(
 	IdSuscripcion integer auto_increment primary key not null,
