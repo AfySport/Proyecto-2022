@@ -1,0 +1,149 @@
+drop database if exists proyecto;
+create database proyecto;
+use proyecto;
+
+create table Usuario(
+	Email varchar(30) primary key not null,
+    Nickname varchar(20),
+    Contrasenia varchar(15));
+    
+create table Suscripto(
+	EmailSuscripto varchar(30) not null,
+    primary key(EmailSuscripto),
+    foreign key (EmailSuscripto) references Usuario(Email));
+    
+create table Administrador(
+	EmailAdministrador varchar(30) not null,
+    primary key(EmailAdministrador),
+    foreign key (EmailAdministrador) references Usuario(Email));
+    
+create table NoSuscripto(
+	EmailNoSuscripto varchar(30) not null,
+    primary key(EmailNoSuscripto),
+    foreign key (EmailNoSuscripto) references Usuario(Email));
+
+create table Jugador(
+	IdJugador integer auto_increment primary key not null,
+    Peso integer,
+    Altura integer,
+    NumCamiseta integer,
+    IdEventoEquipo integer,
+	foreign key (IdEventoEquipo) references Equipo(IdEventoEquipo));
+    
+create table Arbitro(
+	IdArbitro integer auto_increment primary key not null,
+    CantEncuentros integer,
+    Nombre varchar(20));
+    
+create table TarjetaCredito(
+	NumeroTarjeta integer(16) primary key not null,
+    Vencimiento datetime,
+    Tipo enum('Banco Itaú', 'Banco Santander', 'OCA Card', 'Scotiabank', 'BROU'));
+    
+create table Suscripcion(
+	IdSuscripcion integer auto_increment primary key not null,
+    FechaInicio datetime,
+    FechaFin datetime,
+    NumeroTarjeta integer(16),
+	foreign key (NumeroTarjeta) references TarjetaCredito(NumeroTarjeta));
+   
+create table Equipo(
+	IdEventoEquipo integer auto_increment primary key not null,
+    Nacionalidad varchar(20),
+    Nombre varchar(20),
+    Alineacion varchar(20),
+    IdEvento integer,
+    foreign key (IdEvento) references Evento(IdEvento));
+    
+create table Partido(
+	IdPartido integer auto_increment primary key not null,
+    Fecha datetime);
+
+create table Evento(
+	IdEvento integer auto_increment primary key not null,
+    Fecha datetime,
+    Deporte enum('Futbol', 'Tenis', 'Basketball', 'Volleyball', 'Hockey', 'Tenis de mesa' ));
+    
+create table Individual(
+	IdEventoIndividual integer auto_increment primary key not null,
+    Nombre varchar(20),
+    Edad integer,
+    Nacionalidad varchar(25));
+    
+create table Encuentro(
+	IdEncuentro integer auto_increment primary key not null,
+    Fecha datetime);
+    
+create table Suscribe(
+	IdEvento integer auto_increment not null,
+    EmailSuscripto varchar(30) not null,
+    primary key(IdEvento, EmailSuscripto),
+    foreign key(IdEvento) references Evento(IdEvento),
+    foreign key(EmailSuscripto) references Usuario(Email));
+    
+create table Visualiza(
+	EmailSuscripto varchar(30) not null,
+    EmailNoSuscripto varchar(30) not null,
+    IdEvento integer auto_increment not null,
+    primary key (EmailSuscripto, EmailNoSuscripto, IdEvento),
+    foreign key (EmailSuscripto) references Usuario(Email),
+    foreign key (EmailNoSuscripto) references Usuario(Email),
+    foreign key (IdEvento) references Evento(IdEvento));
+    
+create table Utiliza(
+	EmailSuscripto varchar(30) not null,
+    NumeroTarjeta integer(16) not null,
+    primary key (EmailSuscripto, NumeroTarjeta),
+	foreign key (EmailSuscripto) references Usuario(Email),
+    foreign key (NumeroTarjeta) references TarjetaCredito(NumeroTarjeta));
+    
+create table Crea(
+	EmailAdministrador varchar(30) not null,
+    IdEvento integer auto_increment not null,
+    primary key (EmailAdministrador, IdEvento),
+    foreign key (EmailAdministrador) references Usuario(Email),
+    foreign key (IdEvento) references Evento(IdEvento));
+    
+create table Pertenece(
+	IdEvento integer auto_increment not null,
+    IdJugador integer not null,
+    primary key (IdJugador),
+    foreign key (IdJugador) references Jugador(IdJugador),
+    foreign key (IdEvento) references Evento(IdEvento));
+    
+create table Juega(
+	IdPartido integer auto_increment not null,
+    IdJugador integer not null,
+    primary key (IdJugador, IdPartido),
+    foreign key (IdJugador) references Jugador(IdJugador),
+    foreign key (IdPartido) references Partido(IdPartido));
+    
+create table Enfrenta(
+	IdPartidoEquipoLocal integer auto_increment not null,
+    IdPartidoEquipoVisitante integer not null,
+    primary key (IdPartidoEquipoLocal, IdPartidoEquipoVisitante),
+    foreign key (IdPartidoEquipoLocal) references Partido(IdPartido),
+    foreign key (IdPartidoEquipoVisitante) references Partido(IdPartido));
+    
+create table Disputan(
+	IdEncuentro integer auto_increment not null,
+    IdEventoIndividual integer not null,
+    primary key (IdEncuentro, IdEventoIndividual),
+    foreign key (IdEncuentro) references Encuentro(IdEncuentro),
+    foreign key (IdEventoIndividual) references Evento(IdEvento));
+    
+create table Arbitra(
+	IdPartido integer auto_increment not null,
+    IdEncuentro integer not null,
+    IdArbitro integer not null,
+	primary key (IdPartido, IdEncuentro, IdArbitro),
+    foreign key (IdPartido) references Partido(IdPartido),
+    foreign key (IdEncuentro) references Encuentro(IdEncuentro),
+    foreign key (IdArbitro) references Arbitro(IdArbitro));
+    
+create table Compite(
+	IdEncuentroJugador1 integer auto_increment not null,
+    IdEncuentroJugador2 integer not null,
+    primary key (IdEncuentroJugador1),
+    foreign key (IdEncuentroJugador1) references Encuentro(IdEncuentro),
+    foreign key (IdEncuentroJugador2) references Encuentro(IdEncuentro));
