@@ -1,0 +1,67 @@
+insert into Compite(IdEncuentroJugador1, IdEncuentroJugador2) values (1, 2);
+
+insert into Usuario(Email, Nickname, Contrasenia) values ("f2004secu@gmail.com", "Facundo", "facundo123");
+insert into Usuario(Email, Nickname, Contrasenia) values ("agusneves@gmail.com", "Agustin", "agustin2022");
+insert into Usuario(Email, Nickname, Contrasenia) values ("yohny13hdpark@gmail.com", "Yohny", "yohny1515");
+
+insert into Suscripto(EmailSuscripto) values ("f2004secu@gmail.com");  
+
+insert into Administrador(EmailAdministrador) values ("agusneves@gmail.com");
+
+insert into NoSuscripto(EmailNoSuscripto) values ("yohny13hdpark@gmail.com");
+
+insert into Jugador(IdJugador,Nombre, Apellido, Peso, Altura, NumCamiseta, IdEventoEquipo) values (null,"Luis", "Suarez", 86, "182cm", 9, null);
+insert into Jugador(IdJugador,Nombre, Apellido, Peso, Altura, NumCamiseta, IdEventoEquipo) values (null,"Lionel", "Messi", 72, "170cm", 30, null);
+insert into Jugador(IdJugador,Nombre, Apellido, Peso, Altura, NumCamiseta, IdEventoEquipo) values (null,"Robert", "Lewandowski", 81, "185cm", 9, null);
+
+insert into Arbitro(IdArbitro, Nombre, Apellido) values (null, "Danilo", "Simon");
+insert into Arbitro(IdArbitro, Nombre, Apellido) values (null, "Facundo", "Tello");
+insert into Arbitro(IdArbitro, Nombre, Apellido) values (null, "Medina", "Diaz");
+
+insert into TarjetaCredito(NumeroTarjeta, Vencimiento, Tipo) values (3452112950483729, '2022-11-19', 'Visa');  
+insert into TarjetaCredito(NumeroTarjeta, Vencimiento, Tipo) values (2322344532235657, '2024-07-30', 'Visa'); 
+insert into TarjetaCredito(NumeroTarjeta, Vencimiento, Tipo) values (1344972409234361, '2023-12-01', 'Santander'); 
+
+insert into Suscripcion(IdSuscripcion, FechaInicio, FechaFin, NumeroTarjeta) values (null, '2022-05-01', '2022-06-01', 3452112950483729);
+insert into Suscripcion(IdSuscripcion, FechaInicio, FechaFin, NumeroTarjeta) values (null, '2022-08-09', '2022-09-09', 2322344532235657);
+insert into Suscripcion(IdSuscripcion, FechaInicio, FechaFin, NumeroTarjeta) values (null, '2022-06-22', '2022-07-22', 1344972409234361);
+
+insert into Equipo(IdEventoEquipo, Nacionalidad, Nombre, Alineacion, IdEvento) values (null, "Uruguayo", "Danubio", "4-4-2-2", 1);
+insert into Equipo(IdEventoEquipo, Nacionalidad, Nombre, Alineacion, IdEvento) values (null, "Brasilero", "Flamengo", "4-3-3-2", 2);
+insert into Equipo(IdEventoEquipo, Nacionalidad, Nombre, Alineacion, IdEvento) values (null, "Argentino", "River", "5-3-2-2", 3);
+
+insert into Partido(IdPartido, Fecha) values (null, '2022-09-05');
+insert into Partido(IdPartido, Fecha) values (null, '2022-08-23');
+insert into Partido(IdPartido, Fecha) values (null, '2022-10-04');
+
+insert into Evento(IdEvento, Fecha, Deporte) values (null, '2022-08-23', 'Futbol');
+insert into Evento(IdEvento, Fecha, Deporte) values (null, '2022-09-21', 'Volleyball');
+insert into Evento(IdEvento, Fecha, Deporte) values (null, '2022-10-05', 'Futbol');
+
+insert into Individual(IdEventoIndividual, Nombre, Edad, Nacionalidad) values (null, "Rafael Nadal", 36, "España");
+insert into Individual(IdEventoIndividual, Nombre, Edad, Nacionalidad) values (null, "Ma Long ", 33, "China");
+insert into Individual(IdEventoIndividual, Nombre, Edad, Nacionalidad) values (null, "Pablo Cuevas", 36, "Uruguayo");
+
+insert into Encuentro(IdEncuentro, Fecha) values (null, '2022-09-06');
+insert into Encuentro(IdEncuentro, Fecha) values (null, '2022-10-23');
+insert into Encuentro(IdEncuentro, Fecha) values (null, '2022-12-30');
+
+insert into Suscribe(IdEvento, EmailSuscripto) values (1, "f2004secu@gmail");
+insert into Suscribe(IdEvento, EmailSuscripto) values (2, "yohny13hdpark@gmail.com");
+insert into Suscribe(IdEvento, EmailSuscripto) values (3, "agusneves@gmail.com");
+
+insert into Visualiza(EmailSuscripto, EmailNoSuscripto, IdEvento) values ("f2004secu@gmail.com", "yohny13hdpark@gmail.com", null);
+
+insert into Utiliza(EmailSuscripto, NumeroTarjeta) values ("f2004secu@gmail.com", 3452112950483729);
+
+insert into Crea(EmailAdministrador, IdEvento) values ("agusneves@gmail.com", null);        
+
+insert into Pertenece(IdEvento, IdJugador) values (1, 1);
+
+insert into Juega(IdPartido, IdJugador) values (null, 2);  
+
+insert into Enfrenta(IdPartidoEquipoLocal, IdPartidoEquipoVisitante) values (1, 2); 
+
+insert into Disputan(IdEncuentro, IdEventoIndividual) values (2, 3);
+
+insert into Arbitra(IdPartido, IdEncuentro, IdArbitro) values (1, 1, 3);
