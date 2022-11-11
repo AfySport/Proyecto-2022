@@ -1,0 +1,38 @@
+1) 
+	select e.nombre 
+	from equipo e
+	where e.disciplina = "Futbol" 
+	and e.CantPJ > 
+	(select e.CantPj 
+	from equipo 
+	where e.disciplina = "Basquet");
+
+2)
+	select  fecha, count(idEvento) 
+	from evento 
+	where month(fecha) = '8' 
+	and month(fecha) = '9'
+	and month(fecha) = '10'
+	group by fecha;
+
+3)
+	select nombre 
+	from equipo 
+	where cantPj = "0" 
+	and date_sub(now(), interval 30 day);
+
+4)
+	select count(ev.idEvento) as "Cantidad de Eventos", ev.deporte 
+	from evento ev 
+	where ev.fecha >= date_sub(now(), interval 30 day)
+	group by ev.deporte and count(ev.idEvento)>='3';
+
+7) 	
+	create view t_vista as 
+	select c.fecha, c.resultado_local, c.resultado_visitante, e.fecha, e.resultado_jugador1, e.resultado_jugador2 
+	from compite c, enfrenta e 
+	join participa p on (e.IdEvento = p.IdEvento) 
+	join equipo eq on (p.IdEquipo = eq.IdEquipo)
+	join tiene t on (eq.IdEquipo = t.IdEquipo)
+	join jugador j on(t.IdJugador = j.IdJugador)
+	where eq.nacionalidad = "Uruguay" and j.pais_origen = "Uruguay";
